@@ -6,157 +6,80 @@
   <title>Co-op Tuition Calculator | Missouri S&T + Missouri State</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --blue: #185FA5;
-      --green: #3B6D11;
-      --bg: #f5f4f0;
-      --surface: #ffffff;
-      --surface2: #f0efe9;
-      --border: rgba(0,0,0,0.12);
-      --border-md: rgba(0,0,0,0.22);
-      --text: #1a1a18;
-      --text-secondary: #5f5e5a;
-      --radius: 12px;
-      --radius-sm: 8px;
+      --blue: #185FA5; --green: #3B6D11;
+      --bg: #f5f4f0; --surface: #ffffff; --surface2: #f0efe9;
+      --border: rgba(0,0,0,0.12); --border-md: rgba(0,0,0,0.22);
+      --text: #1a1a18; --text-secondary: #5f5e5a;
+      --radius: 12px; --radius-sm: 8px;
     }
-
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #1c1c1a;
-        --surface: #252523;
-        --surface2: #2e2e2b;
-        --border: rgba(255,255,255,0.1);
-        --border-md: rgba(255,255,255,0.2);
-        --text: #f0efe9;
-        --text-secondary: #9e9d97;
+        --bg: #1c1c1a; --surface: #252523; --surface2: #2e2e2b;
+        --border: rgba(255,255,255,0.1); --border-md: rgba(255,255,255,0.2);
+        --text: #f0efe9; --text-secondary: #9e9d97;
       }
     }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 2rem 1rem 4rem;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 2rem 1rem 4rem; }
     .container { max-width: 700px; margin: 0 auto; }
-
     .page-header { margin-bottom: 2rem; text-align: center; }
-    .page-header .eyebrow {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px;
-    }
+    .page-header .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; }
     .page-header h1 { font-size: 26px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
     .page-header p { font-size: 15px; color: var(--text-secondary); }
-
     .school-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    @media (max-width: 500px) {
-      .school-grid { grid-template-columns: 1fr; }
-      .totals-grid { grid-template-columns: 1fr 1fr; }
-      .fee-rows { grid-template-columns: 1fr 1fr; }
-    }
-
-    .school-card {
-      background: var(--surface); border: 0.5px solid var(--border);
-      border-radius: var(--radius); padding: 1.1rem 1.25rem; border-top-width: 3px;
-    }
+    @media (max-width: 500px) { .school-grid { grid-template-columns: 1fr; } .totals-grid { grid-template-columns: 1fr 1fr; } .fee-rows { grid-template-columns: 1fr 1fr; } }
+    .school-card { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.25rem; border-top-width: 3px; }
     .school-card.mst { border-top-color: var(--blue); }
     .school-card.msu { border-top-color: var(--green); }
-
-    .school-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
-      text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px;
-    }
+    .school-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 4px; }
     .school-name { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 14px; }
     .field-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 5px; }
     .field-row { margin-bottom: 12px; }
-
-    input[type=number] {
-      width: 90px; padding: 7px 10px; font-size: 15px;
-      border: 0.5px solid var(--border-md); border-radius: var(--radius-sm);
-      background: var(--surface2); color: var(--text); outline: none; text-align: center;
-      font-family: inherit;
-    }
-    input[type=number]:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(24,95,165,0.15);
-    }
-
-    .toggle {
-      display: flex; border: 0.5px solid var(--border-md);
-      border-radius: var(--radius-sm); overflow: hidden; width: fit-content;
-    }
-    .toggle button {
-      padding: 7px 14px; font-size: 13px; background: transparent;
-      border: none; cursor: pointer; color: var(--text-secondary);
-      transition: background 0.12s, color 0.12s; font-family: inherit;
-    }
+    input[type=number] { width: 90px; padding: 7px 10px; font-size: 15px; border: 0.5px solid var(--border-md); border-radius: var(--radius-sm); background: var(--surface2); color: var(--text); outline: none; text-align: center; font-family: inherit; }
+    input[type=number]:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(24,95,165,0.15); }
+    .toggle { display: flex; border: 0.5px solid var(--border-md); border-radius: var(--radius-sm); overflow: hidden; width: fit-content; }
+    .toggle button { padding: 7px 14px; font-size: 13px; background: transparent; border: none; cursor: pointer; color: var(--text-secondary); transition: background 0.12s, color 0.12s; font-family: inherit; }
     .toggle button.active { background: var(--surface2); color: var(--text); font-weight: 500; }
-
     .rate-hint { font-size: 12px; color: var(--text-secondary); margin-top: 8px; }
-
-    .options-bar {
-      background: var(--surface2); border-radius: var(--radius-sm);
-      padding: 0.9rem 1.25rem; margin-bottom: 14px;
-      border: 0.5px solid var(--border);
-      display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap;
-    }
+    .options-bar { background: var(--surface2); border-radius: var(--radius-sm); padding: 0.9rem 1.25rem; margin-bottom: 14px; border: 0.5px solid var(--border); display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
     .opt-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
-    .opt-note { font-size: 12px; color: var(--text-secondary); line-height: 1.5; padding-top: 2px; }
-
-    .fee-section {
-      background: var(--surface2); border-radius: var(--radius-sm);
-      padding: 0.9rem 1.25rem; margin-bottom: 14px; border: 0.5px solid var(--border);
-    }
-    .fee-title {
-      font-size: 12px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 10px;
-    }
+    .opt-note { font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-top: 4px; }
+    .fee-section { background: var(--surface2); border-radius: var(--radius-sm); padding: 0.9rem 1.25rem; margin-bottom: 14px; border: 0.5px solid var(--border); }
+    .fee-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 10px; }
     .fee-rows { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px 16px; }
     .fee-item { font-size: 13px; color: var(--text-secondary); }
     .fee-item strong { display: block; font-size: 14px; font-weight: 600; color: var(--text); margin-top: 2px; }
-    .fee-note {
-      font-size: 12px; color: var(--text-secondary); margin-top: 10px;
-      padding-top: 10px; border-top: 0.5px solid var(--border); line-height: 1.5;
-    }
-
+    .fee-item .sub { display: block; font-size: 11px; color: var(--text-secondary); margin-top: 2px; }
+    .fee-note { font-size: 12px; color: var(--text-secondary); margin-top: 10px; padding-top: 10px; border-top: 0.5px solid var(--border); line-height: 1.5; }
     .totals-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 14px; }
     .total-card { background: var(--surface2); border-radius: var(--radius-sm); padding: 1rem; }
     .total-card.highlight { background: var(--surface); border: 0.5px solid var(--border-md); }
-    .total-label {
-      font-size: 12px; color: var(--text-secondary); margin-bottom: 6px;
-      display: flex; align-items: center; gap: 5px;
-    }
+    .total-label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
     .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .dot-mst { background: var(--blue); }
-    .dot-msu { background: var(--green); }
+    .dot-mst { background: var(--blue); } .dot-msu { background: var(--green); }
     .total-amount { font-size: 22px; font-weight: 600; color: var(--text); }
     .total-sub { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
-
-    .breakdown {
-      background: var(--surface); border: 0.5px solid var(--border);
-      border-radius: var(--radius); padding: 1.1rem 1.25rem;
-    }
+    .breakdown { background: var(--surface); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
     .breakdown-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 12px; }
-    .bd-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 0; border-bottom: 0.5px solid var(--border); font-size: 14px;
-    }
+    .bd-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 0.5px solid var(--border); font-size: 14px; gap: 12px; }
     .bd-row:last-child { border-bottom: none; font-weight: 600; padding-top: 10px; }
-    .bd-row .lbl { color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
+    .bd-row .lbl { color: var(--text-secondary); display: flex; flex-direction: column; gap: 2px; }
+    .bd-row .lbl-main { display: flex; align-items: center; gap: 6px; }
+    .bd-row .lbl-sub { font-size: 11px; color: var(--text-secondary); }
     .bd-row.total-row .lbl { color: var(--text); }
-    .bd-row .amt { color: var(--text); }
-
-    .footer {
-      margin-top: 2rem; text-align: center; font-size: 12px;
-      color: var(--text-secondary); line-height: 1.7;
-    }
+    .bd-row .amt { color: var(--text); white-space: nowrap; }
+    .footer { margin-top: 2rem; text-align: center; font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+    .disclaimer { background: #faf6e4; border: 0.5px solid #e0cc7a; border-left: 3px solid #c8a600; border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 1.75rem; display: flex; align-items: flex-start; gap: 10px; }
+    @media (prefers-color-scheme: dark) { .disclaimer { background: #2a2610; border-color: #5a4e00; border-left-color: #a88e00; } .disclaimer p { color: #d4be60; } }
+    .disclaimer p { font-size: 13px; color: #7a6000; line-height: 1.5; margin: 0; }
+    .disclaimer strong { font-weight: 600; }
   </style>
 </head>
 <body>
 <div class="container">
+  <div class="disclaimer" role="note">
+    <p><strong>Estimation tool only.</strong> This calculator is not affiliated with Missouri S&T or Missouri State University. Rates and fees are subject to change. Always verify your costs with the official bursar or student accounts office at each institution before making financial decisions.</p>
+  </div>
 
   <div class="page-header">
     <div class="eyebrow">Cooperative Engineering Program</div>
@@ -186,7 +109,7 @@
       <div class="school-label">Institution 2</div>
       <div class="school-name">Missouri State</div>
       <div class="field-row">
-        <div class="field-label">Credit hours at MSU campus</div>
+        <div class="field-label">Credit hours</div>
         <input type="number" id="msu-hours" value="6" min="0" max="21" step="1" oninput="calc()">
       </div>
       <div class="field-row">
@@ -208,20 +131,30 @@
         <button id="sem-summer" onclick="setSem('summer')">Summer</button>
       </div>
     </div>
-    <div>
-      <div class="opt-note">
-        Student fees apply only when MSU hours &gt; 0 (per co-op agreement).<br>
-        8-week courses are billed the same as full semester courses.
-      </div>
+    <div class="opt-note">
+      Student fees based on combined credit hours from both institutions.<br>
+      8-week courses are billed the same as full semester courses.
     </div>
   </div>
 
   <div class="fee-section">
-    <div class="fee-title">Student fees — MSU campus enrollment</div>
+    <div class="fee-title">Student fees — combined enrollment</div>
     <div class="fee-rows">
-      <div class="fee-item">Student services<strong id="fee-svc-display">—</strong></div>
-      <div class="fee-item">Technology fee<strong id="fee-tech-display">—</strong></div>
-      <div class="fee-item" id="fee-ath-item">Athletic fee<strong id="fee-ath-display">—</strong></div>
+      <div class="fee-item">
+        Student services
+        <strong id="fee-svc-display">—</strong>
+        <span class="sub" id="fee-svc-sub"></span>
+      </div>
+      <div class="fee-item">
+        Technology fee
+        <strong id="fee-tech-display">—</strong>
+        <span class="sub">flat rate</span>
+      </div>
+      <div class="fee-item">
+        Athletic fee
+        <strong id="fee-ath-display">—</strong>
+        <span class="sub" id="fee-ath-sub"></span>
+      </div>
     </div>
     <div class="fee-note" id="fee-note"></div>
   </div>
@@ -247,27 +180,30 @@
   <div class="breakdown">
     <div class="breakdown-title">Itemized breakdown</div>
     <div class="bd-row">
-      <span class="lbl"><span class="dot dot-mst"></span>Missouri S&T tuition</span>
+      <span class="lbl"><span class="lbl-main"><span class="dot dot-mst"></span>Missouri S&T tuition</span></span>
       <span class="amt" id="bd-mst">$0.00</span>
     </div>
     <div class="bd-row">
-      <span class="lbl"><span class="dot dot-msu"></span>Missouri State tuition</span>
+      <span class="lbl"><span class="lbl-main"><span class="dot dot-msu"></span>Missouri State tuition</span></span>
       <span class="amt" id="bd-msu">$0.00</span>
     </div>
     <div class="bd-row">
-      <span class="lbl">Student services fee</span>
+      <span class="lbl">
+        <span class="lbl-main">Student services fee</span>
+        <span class="lbl-sub" id="bd-svc-sub"></span>
+      </span>
       <span class="amt" id="bd-svc">$0.00</span>
     </div>
     <div class="bd-row">
-      <span class="lbl">Technology fee</span>
+      <span class="lbl"><span class="lbl-main">Technology fee</span></span>
       <span class="amt" id="bd-tech">$0.00</span>
     </div>
-    <div class="bd-row" id="bd-ath-row">
-      <span class="lbl">Athletic fee</span>
+    <div class="bd-row">
+      <span class="lbl"><span class="lbl-main">Athletic fee</span></span>
       <span class="amt" id="bd-ath">$0.00</span>
     </div>
     <div class="bd-row total-row">
-      <span class="lbl">Semester total</span>
+      <span class="lbl"><span class="lbl-main">Semester total</span></span>
       <span class="amt" id="bd-total">$0.00</span>
     </div>
   </div>
@@ -275,11 +211,10 @@
   <div class="footer">
     <strong>Missouri S&T:</strong> $713.64 in-state / $1,536.80 out-of-state per credit hour &nbsp;·&nbsp;
     <strong>Missouri State:</strong> $302.00 in-state / $646.00 out-of-state per credit hour<br>
-    Student fees apply per co-op agreement when student takes courses on the MSU campus.<br>
-    Fall/Spring: student services $70/hr (max $630 at 9 hrs) + $85 tech fee + $200 athletic fee.<br>
-    Summer: student services $70/hr (max $280 at 4 hrs) + $85 tech fee. No athletic fee.
+    Student fees based on combined credit hours from both institutions.<br>
+    Fall/Spring: student services $70/hr up to 9 hrs, flat rate $630 at 9+ hrs · $85 tech fee · $200 athletic fee.<br>
+    Summer: student services $70/hr up to 4 hrs, flat rate $280 at 4+ hrs · $85 tech fee · no athletic fee.
   </div>
-
 </div>
 
 <script>
@@ -287,12 +222,8 @@
   const res = { mst: 'in', msu: 'in' };
   let semester = 'fall';
 
-  function fmt(n) {
-    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
-  function fmtShort(n) {
-    return '$' + Math.round(n).toLocaleString('en-US');
-  }
+  function fmt(n) { return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function fmtShort(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 
   function setRes(school, type) {
     res[school] = type;
@@ -300,7 +231,6 @@
     document.getElementById(school + '-out').classList.toggle('active', type === 'out');
     calc();
   }
-
   function setSem(type) {
     semester = type;
     document.getElementById('sem-fall').classList.toggle('active', type === 'fall');
@@ -308,25 +238,30 @@
     calc();
   }
 
-  function computeFees(msuH) {
-    if (msuH === 0) {
-      return { svc: 0, tech: 0, ath: 0, note: 'No MSU campus enrollment — student fees are not charged.' };
-    }
+  function computeFees(totalH) {
+    if (totalH === 0) return { svc: 0, tech: 0, ath: 0, svcLabel: 'N/A', svcSub: '', note: 'No enrollment — student fees not charged.' };
+
     if (semester === 'summer') {
-      const billable = Math.min(msuH, 4);
-      const svc = billable * 70;
-      const over = msuH > 4 ? ' Fee capped at 4 hrs; you entered ' + msuH + ' hrs.' : '';
+      const atCap = totalH >= 4;
+      const svc = atCap ? 280 : totalH * 70;
       return {
         svc, tech: 85, ath: 0,
-        note: 'Summer: student services $70/hr capped at 4 hrs (max $280).' + over + ' Athletic fee is not charged in summer.'
+        svcLabel: fmt(svc),
+        svcSub: atCap ? 'flat rate (4+ combined hrs)' : totalH + ' combined hrs × $70',
+        note: atCap
+          ? 'Summer: ' + totalH + ' combined hrs — student services flat rate $280.00 (max at 4+ hrs). Athletic fee not charged in summer.'
+          : 'Summer: student services $70 × ' + totalH + ' combined hrs = ' + fmt(svc) + '. Athletic fee not charged in summer.'
       };
     } else {
-      const billable = Math.min(msuH, 9);
-      const svc = billable * 70;
-      const over = msuH > 9 ? ' Fee capped at 9 hrs; you entered ' + msuH + ' hrs.' : '';
+      const atCap = totalH >= 9;
+      const svc = atCap ? 630 : totalH * 70;
       return {
         svc, tech: 85, ath: 200,
-        note: 'Fall/Spring: student services $70/hr up to 9 hrs (max $630).' + over + ' 8-week courses billed same as full semester.'
+        svcLabel: fmt(svc),
+        svcSub: atCap ? 'flat rate (9+ combined hrs)' : totalH + ' combined hrs × $70',
+        note: atCap
+          ? 'Fall/Spring: ' + totalH + ' combined hrs — student services flat rate $630.00 (max at 9+ hrs). 8-week courses billed same as full semester.'
+          : 'Fall/Spring: student services $70 × ' + totalH + ' combined hrs = ' + fmt(svc) + '. 8-week courses billed same as full semester.'
       };
     }
   }
@@ -334,33 +269,34 @@
   function calc() {
     const mstH = Math.max(0, parseInt(document.getElementById('mst-hours').value) || 0);
     const msuH = Math.max(0, parseInt(document.getElementById('msu-hours').value) || 0);
+    const totalH = mstH + msuH;
     const mstRate = rates.mst[res.mst];
     const msuRate = rates.msu[res.msu];
     const mstTuition = mstH * mstRate;
     const msuTuition = msuH * msuRate;
-    const fees = computeFees(msuH);
+    const fees = computeFees(totalH);
     const grand = mstTuition + msuTuition + fees.svc + fees.tech + fees.ath;
 
     document.getElementById('mst-total').textContent = fmtShort(mstTuition);
     document.getElementById('mst-sub').textContent = mstH + ' hrs × $' + mstRate.toFixed(2);
     document.getElementById('mst-rate-display').textContent = '$' + mstRate.toFixed(2) + ' / credit hour (' + (res.mst === 'in' ? 'in' : 'out-of') + '-state)';
-
     document.getElementById('msu-total').textContent = fmtShort(msuTuition);
     document.getElementById('msu-sub').textContent = msuH + ' hrs × $' + msuRate.toFixed(2);
     document.getElementById('msu-rate-display').textContent = '$' + msuRate.toFixed(2) + ' / credit hour (' + (res.msu === 'in' ? 'in' : 'out-of') + '-state)';
-
     document.getElementById('grand-total').textContent = fmtShort(grand);
-    document.getElementById('total-sub').textContent = (mstH + msuH) + ' total credit hours';
+    document.getElementById('total-sub').textContent = totalH + ' total credit hours';
 
-    const billable = semester === 'summer' ? Math.min(msuH, 4) : Math.min(msuH, 9);
-    document.getElementById('fee-svc-display').textContent = msuH === 0 ? 'N/A' : fmt(fees.svc) + ' (' + billable + ' hrs × $70)';
-    document.getElementById('fee-tech-display').textContent = msuH === 0 ? 'N/A' : '$85.00 (flat)';
-    document.getElementById('fee-ath-display').textContent = semester === 'summer' ? 'Not charged' : (msuH === 0 ? 'N/A' : '$200.00 (flat)');
+    document.getElementById('fee-svc-display').textContent = fees.svcLabel;
+    document.getElementById('fee-svc-sub').textContent = fees.svcSub;
+    document.getElementById('fee-tech-display').textContent = totalH === 0 ? 'N/A' : '$85.00';
+    document.getElementById('fee-ath-display').textContent = semester === 'summer' ? 'Not charged' : (totalH === 0 ? 'N/A' : '$200.00');
+    document.getElementById('fee-ath-sub').textContent = semester === 'summer' ? '' : (totalH > 0 ? 'flat rate' : '');
     document.getElementById('fee-note').textContent = fees.note;
 
     document.getElementById('bd-mst').textContent = fmt(mstTuition);
     document.getElementById('bd-msu').textContent = fmt(msuTuition);
     document.getElementById('bd-svc').textContent = fmt(fees.svc);
+    document.getElementById('bd-svc-sub').textContent = fees.svcSub;
     document.getElementById('bd-tech').textContent = fmt(fees.tech);
     document.getElementById('bd-ath').textContent = fmt(fees.ath);
     document.getElementById('bd-total').textContent = fmt(grand);
